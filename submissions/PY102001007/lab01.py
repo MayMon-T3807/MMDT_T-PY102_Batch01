@@ -95,19 +95,22 @@ def doubleIt(head):
     curr = head
 
     while curr is not None:
-        total = curr.val * 2 + carry  
-        curr.val = total % 10          
-        carry = total // 10            
+        total = curr.val * 2 + carry
+        curr.val = total % 10
+        carry = total // 10
+        curr = curr.next          
 
+    
+    if carry > 0:
+        new_node = Node(carry)    
         
-        if curr.next is None and carry > 0:
-            curr.next = Node(carry)
-            carry = 0  
-
-        curr = curr.next
+        tail = head
+        while tail.next is not None:
+            tail = tail.next
+        tail.next = new_node
 
     
     head = reverseList(head)
-
     return head
+    
 
