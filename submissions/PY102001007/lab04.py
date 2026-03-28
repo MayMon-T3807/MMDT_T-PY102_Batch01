@@ -27,22 +27,7 @@ def postorder(root):
 # -------------------------
 # Q1 — Build Submission Tree for submissions folder
 # -------------------------
-# Visit our class homework submission repo.
-# Look inside the "submissions" folder.
-# Pick TWO folders: your folder and your friend's folder (choose with files).
-#
-# Notes:
-# - Ignore any subfolders inside the chosen folders.
-# - Only consider FILES inside each chosen folder (each filename becomes a node).
-# - Tree structure should be:
-#     submissions
-#     ├── folder1
-#     │   ├── fileA
-#     │   └── fileB
-#     └── folder2
-#         ├── fileC
-#         └── fileD
-# -------------------------
+
 def build_submission_tree(base_path: str, folder1: str, folder2: str) -> TreeNode:
     """
     base_path: "submissions"
@@ -57,10 +42,10 @@ def build_submission_tree(base_path: str, folder1: str, folder2: str) -> TreeNod
     root.left = TreeNode(folder1)
     root.right = TreeNode(folder2)
     
-    
+    # For folder1 - create files using a loop
     lab_files = ["lab00.py", "lab01.py", "lab02.py", "lab03.py", "autograder_results.json"]
     
-    
+    # Build chain from first to last
     current = None
     for file_name in reversed(lab_files):
         file_node = TreeNode(file_name)
@@ -69,8 +54,10 @@ def build_submission_tree(base_path: str, folder1: str, folder2: str) -> TreeNod
     
     root.left.left = current
     
+    # For folder2 - create files using a different approach (building forward)
     lab_files2 = ["lab00.py", "lab01.py", "lab02.py", "lab03.py", "autograder_results.json"]
     
+    # Build chain forward
     head = TreeNode(lab_files2[0])
     current_node = head
     for file_name in lab_files2[1:]:
@@ -115,10 +102,8 @@ def find_py_files(root: TreeNode) -> list[str]:
         
         traverse_files(file_node.right, folder_name)
     
-
     if root.left and root.left.left:
         traverse_files(root.left.left, root.left.value)
-    
     
     if root.right and root.right.left:
         traverse_files(root.right.left, root.right.value)
